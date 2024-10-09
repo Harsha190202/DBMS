@@ -1,0 +1,167 @@
+COMMON commands :
+
+SELECT - extracts data from a database
+UPDATE - updates data in a database
+DELETE - deletes data from a database
+INSERT INTO - inserts new data into a database
+CREATE DATABASE - creates a new database
+ALTER DATABASE - modifies a database
+CREATE TABLE - creates a new table
+ALTER TABLE - modifies a table
+DROP TABLE - deletes a table
+CREATE INDEX - creates an index (search key)
+DROP INDEX - deletes an index
+
+keypoints :
+
+The WHERE clause is not only used in SELECT statements, it is also used in UPDATE, DELETE, etc.
+
+For string values the ORDER BY keyword will order alphabetically
+
+
+----
+
+The following SQL statement selects all customers from the "Customers" table,
+sorted by the "Country" and the "CustomerName" column. 
+This means that it orders by Country, but if some rows have the same Country,
+it orders them by CustomerName:
+
+SELECT * FROM Customers
+ORDER BY Country, CustomerName;
+
+----
+
+Insert statement : 
+
+1. Specify both the column names and the values to be inserted:
+
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+2. If you are adding values for all the columns of the table, 
+you do not need to specify the column names in the SQL query. 
+However, make sure the order of the values is in the same order as the columns in the table. 
+Here, the INSERT INTO syntax would be as follows:
+
+INSERT INTO table_name
+VALUES (value1, value2, value3, ...);
+
+
+eg : 
+
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES
+('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway'),
+('Greasy Burger', 'Per Olsen', 'Gateveien 15', 'Sandnes', '4306', 'Norway'),
+('Tasty Tee', 'Finn Egan', 'Streetroad 19B', 'Liverpool', 'L1 0AA', 'UK');
+
+
+----
+
+update statement :
+
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+----
+
+delete statement : 
+
+DELETE FROM table_name WHERE condition;
+
+DELETE FROM table_name; (deleting all rows without deleting table)
+
+----
+
+The most commonly used SQL aggregate functions are:
+
+MIN() - returns the smallest value within the selected column
+MAX() - returns the largest value within the selected column
+COUNT() - returns the number of rows in a set
+SUM() - returns the total sum of a numerical column
+AVG() - returns the average value of a numerical column
+Aggregate functions ignore null values (except for COUNT()).
+
+----
+
+
+
+queries :
+
+1.SELECT column1, column2, ...
+FROM table_name;
+
+2.SELECT DISTINCT Country FROM Customers;
+
+3.SELECT * FROM Customers
+WHERE Country='Mexico';
+
+WHERE can be used > , < , >= , <= , = , <> (not equal) , BETWEEN (range),  IN (a,b,c), LIKE (pattern )
+
+4.SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1, column2, ... ASC|DESC;
+
+5.SELECT * FROM Customers
+ORDER BY Country ASC, CustomerName DESC;
+
+6.SELECT column1, column2, ...
+FROM table_name
+WHERE condition1 AND condition2 AND condition3 ...;(similarly OR can be used )
+
+7.SELECT * FROM Customers
+WHERE City IN ('Paris','London');
+
+8.SELECT column1, column2, ...
+FROM table_name
+WHERE NOT condition;
+
+9.SELECT column_names
+FROM table_name
+WHERE column_name IS NULL;(IS NULL , IS NOT NULL)
+
+10.SELECT column_name(s)
+FROM table_name
+WHERE condition
+LIMIT number;
+
+SELECT TOP number|percent column_name(s)
+FROM table_name
+WHERE condition;
+
+SQL TOP, LIMIT, FETCH FIRST or ROWNUM Clause
+
+11.SELECT MIN(Price) AS SmallestPrice, CategoryID
+FROM Products
+GROUP BY CategoryID;
+
+(min price for categoryId grouped will be coming)
+
+12.SELECT COUNT(*) AS [Number of records]
+FROM Products;
+
+13.SELECT AVG(column_name) AS [Column] (sum , avg , min, max ,cnt )
+FROM table_name
+WHERE condition;
+
+14.SELECT column1, column2, ...
+FROM table_name
+WHERE columnN LIKE pattern;
+
+patterns : 'a%' , 'a_ _ _ ' , [anp] (any of a or n or p) , [a-f] , [!as]
+
+15.SELECT * FROM Products
+WHERE ProductName BETWEEN 'Carnarvon Tigers' AND 'Mozzarella di Giovanni'
+ORDER BY ProductName; 
+
+all column inbetween 
+
+16.SELECT CustomerName, Address + ', ' + PostalCode + ' ' + City + ', ' + Country AS Address
+FROM Customers;
+
+17.SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5
+ORDER BY COUNT(CustomerID) DESC;

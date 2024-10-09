@@ -1,0 +1,134 @@
+1.CREATE DATABASE : CREATE DATABASE testDB;
+2.DELERE DB : DROP DATABASE testDB;
+3. backup : 
+BACKUP DATABASE databasename
+TO DISK = 'filepath';
+
+BACKUP DATABASE testDB
+TO DISK = 'D:\backups\testDB.bak'
+WITH DIFFERENTIAL;
+
+ A differential back up reduces the back up time (since only the changes are backed up).
+
+4.CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+   ....
+);
+
+5.CREATE TABLE new_table_name AS
+    SELECT column1, column2,...
+    FROM existing_table_name
+    WHERE ....;
+
+
+6.DROP TABLE table_name; // TRUNCATE TABLE table_name; (not deletes the table itself)
+
+7.The ALTER TABLE statement is used to add, delete, or modify columns in an existing table.
+The ALTER TABLE statement is also used to add and drop various constraints on an existing table.
+
+i)ALTER TABLE Customers
+ADD Email varchar(255);
+
+ii)ALTER TABLE table_name
+DROP COLUMN column_name;
+
+iii)ALTER TABLE table_name
+RENAME COLUMN old_name to new_name;
+
+iv)ALTER TABLE table_name
+ALTER COLUMN column_name datatype;
+
+
+8.constraints 
+
+CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    column3 datatype constraint,
+    ....
+);
+
+
+types : 
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Prevents actions that would destroy links between tables
+CHECK - Ensures that the values in a column satisfies a specific condition
+DEFAULT - Sets a default value for a column if no value is specified
+CREATE INDEX - Used to create and retrieve data from the database very quickly
+
+eg : 
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (ID)
+);
+
+dropping constraints :
+ ALTER TABLE Persons
+DROP PRIMARY KEY;
+
+
+FOREIGN keY : 
+
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+
+CHeck : 
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CHECK (Age>=18)
+);
+
+default : 
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Sandnes'
+);
+
+
+autoincrement key : 
+CREATE TABLE Persons (
+    Personid AUTOINCREMENT(3,10) PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+
+3--> intial value , 10 --> increment value 
+
+
+
+------
+
+In SQL, a view is a virtual table based on the result-set of an SQL statement.
+
+A view contains rows and columns, just like a real table. The fields in a view are fields from one or more real tables in the database.
+
+You can add SQL statements and functions to a view and present the data as if the data were coming from one single table.
+
+A view is created with the CREATE VIEW statement. 
+
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+  ---> querying veiw SELECT * FROM [Brazil Customers];

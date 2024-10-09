@@ -1,0 +1,83 @@
+1NF : 
+
+members can be in any order 
+If we want specific order for everything we can order them 
+
+solution : add a extra column to identity them in rankings / order 
+
+using row order to convey information violates 1NF : we should devote a separate column to it to order 
+mixing datatypes (one datatype for one column)
+designing table without primary key (one row one particular value so we cant avoid multiple value for same thing)
+Repeating groups 
+
+eg : iventory : 1cup 2tables 1door 3windows (no way query) 
+Storing repeated group of data items on single row 
+
+Solution : 
+
+userid iventorytype iventoryquantity
+   1       window        3
+   2        door         2
+   1       table         5
+   4       cups          2
+   1       cups          1
+
+
+2NF : 
+
+deletion , insertion anamoly and update anamoly 
+(update , insertion and delete may not happen correctly data might be lost or incorrect data representation may happen )
+
+userid iventorytype iventoryquantity userrating 
+   1       window        3          Intermediate
+   2        door         2            Beginner  
+   1       table         5          Intermediate 
+   4       cups          2            Expert
+   1       cups          1          Intermediate
+
+userrating is getting repeated , make it into other table 
+
+
+Non-key attributes : other than primary key combinations(userrating is not depended on iventorytype)
+
+Each non - key attributes must depend on entire primary key 
+
+New Table : 
+
+userid userrating
+  1   Intermediate
+  2    Beginner 
+  4     Expert 
+
+
+3NF : Every non key term should only depend on the primary key or whole key
+
+
+Eg to thought of adding skilllevel to users  :
+
+1-3 - Beginner
+4-7 - Intermediate
+8-10 - Expert
+
+we skill is changed we might need to change rating and it might lead to inconsistency 3 ---> 4 
+
+userid  userrating    skill   
+   1   Intermediate     6
+   2    Beginner        3    ----->    we remove the middle attributes and create a new table 
+   4     Expert         9
+
+Translative dependency skill is depended on userid and userrating (non - primary key )
+
+
+userid skill 
+  1      6
+  2      3      && 
+  4      9
+
+
+userskill  userrating
+   1        Beginner
+   2        Beginner
+   3        Beginner
+   4        Beginner
+   5        Intermediate .....
